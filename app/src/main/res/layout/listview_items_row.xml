@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:layout_weight="10">
+
+    <ImageView
+        android:id="@+id/items_ima1"
+        android:layout_weight="3"
+        android:src="@drawable/man"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/items_price"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:layout_weight="2"
+        android:text="@string/tvmess2"
+        tools:text="price"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/items_currency"
+        android:layout_toStartOf="@+id/items_currency"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/items_currency"
+        android:layout_width="30dp"
+        android:layout_weight="2"
+        android:text="@string/tvmess2"
+        android:layout_height="25dp"
+        android:layout_marginRight="11dp"
+        android:layout_marginEnd="11dp"
+        android:layout_alignBottom="@+id/items_ima1"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        tools:text="currency" />
+
+    <TextView
+        android:id="@+id/items_alert"
+        android:layout_width="120dp"
+        android:layout_height="20dp"
+        android:layout_weight="2"
+        android:text="@string/tvmess2"
+        tools:text="alert"
+        android:layout_below="@+id/items_ima1"
+        android:layout_toRightOf="@+id/items_name"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp"
+        android:layout_alignRight="@+id/items_currency"
+        android:layout_alignEnd="@+id/items_currency" />
+
+    <TextView
+        android:id="@+id/items_name"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_weight="5"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:text="@string/tvmess1"
+        tools:text="name"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp" />
+
+</RelativeLayout>

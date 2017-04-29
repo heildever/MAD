@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="@string/Price"
+        android:ems="10"
+        android:id="@+id/new_item_price"
+
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/new_item_name"
+        android:layout_alignRight="@+id/new_item_name"
+        android:layout_alignEnd="@+id/new_item_name"
+        tools:text="Price" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/new_item_name"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="19dp"
+        android:hint="@string/New_item_name"
+        tools:text="New item name" />
+
+    <Spinner
+        android:id="@+id/spin_item_currency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dialog"
+        android:text="@string/Currency"
+        android:entries="@array/currencies_array"
+        android:layout_below="@+id/new_item_name"
+        android:layout_toRightOf="@+id/new_item_price"
+        android:layout_toEndOf="@+id/new_item_price"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        >
+    </Spinner>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Alert"
+        android:ems="10"
+        android:layout_marginTop="21dp"
+        android:id="@+id/new_item_alert"
+        android:layout_below="@+id/new_item_price"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        tools:text="Tipe an alert message here" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="49dp"
+        android:layout_marginStart="49dp"
+        android:layout_marginTop="35dp"
+        android:id="@+id/new_item_photo"
+        android:layout_below="@+id/new_item_alert"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        tools:text="Upload photo"
+        android:text="Upload Photo" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="23dp"
+        android:id="@+id/new_item_add_another"
+        tools:text="add another item"
+        android:text="Add Another" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/new_item_add_another"
+        android:layout_toRightOf="@+id/new_item_add_another"
+        android:layout_toEndOf="@+id/new_item_add_another"
+        android:layout_marginLeft="27dp"
+        android:layout_marginStart="27dp"
+        android:id="@+id/new_item_save"
+        tools:text="save"
+        android:text="Save" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/new_item_add_another"
+        android:layout_toLeftOf="@+id/new_item_add_another"
+        android:layout_toStartOf="@+id/new_item_add_another"
+        android:layout_marginRight="25dp"
+        android:layout_marginEnd="25dp"
+        android:id="@+id/new_item_cancell"
+        tools:text="Cancel"
+        android:text="Cancel" />
+
+</RelativeLayout>

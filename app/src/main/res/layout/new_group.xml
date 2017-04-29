@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/new_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_marginTop="14dp"
+        android:hint="@string/New_item_name"
+        tools:text="New Group"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/new_item_photo"
+        android:layout_toStartOf="@+id/new_item_photo" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:id="@+id/new_item_photo_group"
+        tools:text="Upload photo"
+        android:text="Upload Photo"
+        android:layout_below="@+id/new_group"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/new_group_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="save"
+        android:text="Save"
+        android:layout_alignBaseline="@+id/new_group_cancell"
+        android:layout_alignBottom="@+id/new_group_cancell"
+        android:layout_alignRight="@+id/new_group"
+        android:layout_alignEnd="@+id/new_group"
+        android:layout_marginRight="62dp"
+        android:layout_marginEnd="62dp" />
+
+    <Button
+        android:id="@+id/new_group_cancell"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Cancel"
+        android:text="Cancel"
+        android:layout_marginBottom="32dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/new_group"
+        android:layout_toEndOf="@+id/new_group"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp" />
+
+</RelativeLayout>

@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">Lab2</string>
+    <string name="Currency">Currency</string>
+    <string name="Price">Price</string>
+    <string name="Name">Name</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="messact2">Hi</string>
+    <string name="header">Header</string>
+    <string name="tvmess1">List view modified</string>
+    <string name="tvmess2">Notification</string>
+    <string name="mesact2">Acitvity two</string>
+
+
+    <string name="Button">Button</string>
+    <string name="New_item_name">New item name</string>
+
+    <string-array name="currencies_array">
+        <item>US</item>
+        <item>EUR</item>
+        <item>COP</item>
+        <item>GBP</item>
+        <item>AUD</item>
+        <item>CHF</item>
+        <item>AED</item>
+        <item>HRK</item>
+    </string-array>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+
+    <string name="action_logout"> Log Out</string>
+    <string name="facebook_app_id">YOUR_APP_ID</string>
+    <string name="loading">Loading</string>
+    <string name="title_activity_autentification">Sign in</string>
+
+
+    <string name="app_code">b86y3</string>
+</resources>

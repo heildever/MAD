@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.mad.lab2.MainActivity">
+
+    <TextView
+        android:id="@+id/userID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:editable="false"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name" />
+
+    <ListView
+        android:id="@+id/lista1"
+        android:layout_width="match_parent"
+        android:layout_height="309dp">
+
+    </ListView>
+
+    <Button
+        android:id="@+id/clos_ses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Close session" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_group"
+        android:layout_width="71dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/margenes_fab"
+        android:layout_weight="0.01"
+        android:clickable="true"
+        android:src="@android:drawable/ic_input_add" />
+
+</LinearLayout>
