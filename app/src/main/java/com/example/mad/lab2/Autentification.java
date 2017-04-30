@@ -110,40 +110,26 @@ public class Autentification extends AppCompatActivity implements LoaderCallback
                         @Override
                         public void onDataChange(DataSnapshot snap) {
                             Log.d("snap: ",  "*************************************************************");
-/*                            Log.d("snap: ",  snap.toString());
-                            Log.d("snap: ",  snap.getValue().toString());
-                            Log.d("snap: ",  snap.getKey().toString());
-                            Log.d("snap: ",  snap.getKey().substring(0).toString());
-                            Log.d("snap: ",  snap.getKey().substring(1).toString());*/
+
                             Log.d("snap: ",  "*************************************************************");
                            HashMap<String, String> grupitos = (HashMap<String, String>) snap.getValue();
-/*
-                            Log.d("snap: ",  grupitos.toString());
-                            Log.d("snap: ",  grupitos.values().toString());*/
-/*
-
-                            Log.d("snap: ",  grupitos.values().toString());
-*/
 
 
-                            /*ArrayList<String> listica = new ArrayList<String>(grupitos.values());
-                            ArrayList groups_list =  listica;*/
-/*
-
-                            Log.d("[~USUARIO~]: ",  mAuth.getCurrentUser().getEmail().toString());
-*/
-
-                            try {
+                            /*try {
                                 ArrayList<String> listica = new ArrayList<String>(grupitos.values());
                                 ArrayList groups_list =  listica;
                                 startActivity(new Intent(Autentification.this, MainActivity.class).putExtra("group_list",groups_list));
+                                finish();
                             }catch (Exception ex){
                                 ArrayList listica = new ArrayList();
                                 listica.clear();
                                 ArrayList groups_list =  listica;
                                 startActivity(new Intent(Autentification.this, MainActivity.class).putExtra("group_list",groups_list));
+                                finish();
                             }
-
+*/
+                            startActivity(new Intent(Autentification.this, MainActivity.class));
+                            finish();
 
                             Log.d("snap: ",  "*************************************************************");
                             //code for retrieve the group list
