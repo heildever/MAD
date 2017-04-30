@@ -61,7 +61,7 @@ public class new_item_activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Creating firebase object
-                Firebase ref = new Firebase(Config.FIREBASE_URL).child(group_name);
+                Firebase ref = new Firebase(Config.FIREBASE_URL).child("Groups").child(group_name).child("Items");
 
                 //Getting values to store
                 String name = new_item_name.getText().toString().trim();

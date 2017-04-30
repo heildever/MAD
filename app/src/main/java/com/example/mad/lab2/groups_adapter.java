@@ -21,15 +21,21 @@ public class groups_adapter extends ArrayAdapter<groups_class> {
     Context context;
     private ArrayList<groups_class> data;
     int layoutResourceId;
+
+    private ArrayList<doubts_class> data_doubts;
+
+
     //groups_class data[] = null;
 
     //Constructor
-    public groups_adapter(Context context, int layoutResourceId, ArrayList<groups_class> data){
+    public groups_adapter(Context context, int layoutResourceId, ArrayList<groups_class> data, ArrayList<doubts_class> doubts){
         super(context, layoutResourceId, data);
 
         this.context = context;
         this.layoutResourceId = layoutResourceId;
         this.data = data;
+        this.data_doubts=doubts;
+
     }
 
     // Create the view
@@ -46,6 +52,13 @@ public class groups_adapter extends ArrayAdapter<groups_class> {
             holder.image = (ImageView) row.findViewById(R.id.ima1);
             holder.text = (TextView) row.findViewById(R.id.text1);
             holder.textnot = (TextView) row.findViewById(R.id.text2);
+
+            /////velez april 30
+            holder.divided_doubt = (TextView) row.findViewById(R.id.divided_doubt);
+            holder.total_doubt= (TextView) row.findViewById(R.id.total_doubt);
+            /////velez april 30 end
+
+
             row.setTag(holder);
         }else{
             holder = (groups_holder)row.getTag();
@@ -55,6 +68,14 @@ public class groups_adapter extends ArrayAdapter<groups_class> {
         groups_class group = data.get(position);
         holder.text.setText(group.getTitle());
         holder.textnot.setText(group.getNoti());
+
+        /////velez april 30
+        doubts_class doubt =data_doubts.get(position);
+        holder.divided_doubt.setText(doubt.getDivided());
+        holder.total_doubt.setText(doubt.getTotal());
+        /////velez april 30 end
+
+
        /* holder.image.setImageResource(group.icon);*/
         Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(group.getIcon()));
         if(bitmap != null)
@@ -73,6 +94,9 @@ public class groups_adapter extends ArrayAdapter<groups_class> {
         ImageView image;
         TextView text;
         TextView textnot;
+
+        TextView total_doubt;
+        TextView divided_doubt;
 
 
     }

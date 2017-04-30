@@ -4,19 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:hint="@string/Price"
-        android:ems="10"
-        android:id="@+id/new_item_price"
-
-        android:layout_marginTop="12dp"
-        android:layout_below="@+id/new_item_name"
-        android:layout_alignRight="@+id/new_item_name"
-        android:layout_alignEnd="@+id/new_item_name"
-        tools:text="Price" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -29,8 +16,22 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="19dp"
         android:hint="@string/New_item_name"
+
         tools:text="New item name" />
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="@string/Price"
+        android:ems="10"
+        android:id="@+id/new_item_price"
+
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/new_item_name"
+        android:layout_alignRight="@+id/new_item_name"
+        android:layout_alignEnd="@+id/new_item_name"
+        tools:text="Price" />
     <Spinner
         android:id="@+id/spin_item_currency"
         android:layout_width="wrap_content"

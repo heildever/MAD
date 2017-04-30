@@ -1,5 +1,6 @@
 package com.example.mad.lab2;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -13,6 +14,7 @@ public class groups_class {
     public String noti;
     //public ArrayList<items_class> items;
     private HashMap<String, Object> Items;
+    private ArrayList<String> members = new ArrayList<>();
 
     //Constructor => in case we dont receive anything
     public groups_class(){

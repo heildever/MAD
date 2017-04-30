@@ -88,35 +88,26 @@ public class Invite_Activity extends AppCompatActivity {
 
                     if (snap.exists()) {
                         email_exist=true;
-                        Log.d("exist email:", "entro en el TRUE");
-                /* Log.d("order by child email:", snap.toString());
-                Log.d("order by child email:", snap.getValue().toString());
-                Log.d("order by child email:", snap.child("id").toString());*/
+                        Firebase ref_group = new Firebase(Config.FIREBASE_URL).child("Groups").child(group_id).child("members");
+
+
                         HashMap<String, String> look_email = (HashMap<String, String>) snap.getValue();
-              /*  Log.d("order by child email:", look_email.values().toString());
-                Log.d("order by child email:", look_email.keySet().toString());*/
-                        Log.d("id usuario:", look_email.toString());
-                        Log.d("id usuario:", look_email.keySet().toString());
+
+
                         userID=look_email.keySet().toString().substring(1, look_email.keySet().toString().length()-1);
 
+                        ref_group.child(userID).setValue(new member_class(userID));    //add a group member
 
 
-                /*HashMap<String,String> look_email2 = (HashMap<String,String>) look_email.values();
-                Log.d("order by child email:", look_email.get("id").toString());
-
-
-
-*/
 
                         Firebase modif_usr = new Firebase(Config.FIREBASE_URL).child("Users").child(userID).child("groups");
-            /*group_name_class group_invitation = new group_name_class("Group1");*/
-            /* modif_usr.push().setValue(group_invitation);*/
-                        modif_usr.push().setValue(group_id);
+
+                        modif_usr.push().setValue(new group_name_class(group_id));
 
 
 
                     }
-                    else {
+                    else { //email does not exist
                         Firebase ref = new Firebase(Config.FIREBASE_URL).child("Invitations").push();
 
                         //Getting values to store
@@ -126,19 +117,17 @@ public class Invite_Activity extends AppCompatActivity {
                         String group = mes;
                         //String key ref.push().getKey();
 
-                        ref.setValue(new invitation_class(mail,timestamp,group));
-                        Log.d("KEY KEY KEY KEY: ", ref.getKey());
-                        //NEW USER send email..... EN ESTE APPROACH SE CREA UN PERFIL DEL USUARIO Q LUEGO SERA MODIFICADO CUANDO EL LLENE LOS CAMPOS
-                        Log.i("Send email", "");
+                        ref.setValue(new invitation_class(mail,timestamp,group)); //add the invitation
+
 
                         String[] TO = {to};
-                        //String[] CC = {"xyz@gmail.com"};
+
                         Intent emailIntent = new Intent(Intent.ACTION_SEND);
                         emailIntent.setData(Uri.parse("mailto:"));
                         emailIntent.setType("text/plain");
                         String mess="You have an invitation to join the group "+mes+" use this link Https://example.com/"+ ref.getKey().toString() +" for joining. If you dont have our app install it by using this link (HERE LINK TO GOOGLE PLAY STORE).";
                         emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
-                        //emailIntent.putExtra(Intent.EXTRA_CC, CC);
+
                         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "subject");
                         emailIntent.putExtra(Intent.EXTRA_TEXT,mess);
 

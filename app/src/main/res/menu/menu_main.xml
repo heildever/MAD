@@ -11,7 +11,7 @@
     <item
         android:id="@+id/action_seeIndividuals"
         android:orderInCategory="100"
-        android:title="See individuals"
+        android:title="See members"
         app:showAsAction="never" />
 
     <item
@@ -19,4 +19,11 @@
         android:orderInCategory="100"
         android:title="Invite people"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_leaveGroup"
+        android:orderInCategory="100"
+        android:title="Leave Group"
+        app:showAsAction="never" />
+
 </menu>
