@@ -60,9 +60,7 @@ public class Autentification_old_user extends AppCompatActivity implements Loade
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
+ 
     private UserLoginTask mAuthTask = null;
 
     // UI references.
