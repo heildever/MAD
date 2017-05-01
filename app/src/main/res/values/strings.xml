@@ -14,6 +14,7 @@
 
     <string name="Button">Button</string>
     <string name="New_item_name">New item name</string>
+    <string name="New_group_name">New group name</string>
 
     <string-array name="currencies_array">
         <item>US</item>

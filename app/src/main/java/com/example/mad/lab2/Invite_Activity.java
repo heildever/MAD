@@ -45,6 +45,7 @@ public class Invite_Activity extends AppCompatActivity {
 
     private EditText invite_text;
     private String group_id;
+    private String group_name;
     private String to;
     private Boolean email_exist;
     private String userID;
@@ -56,9 +57,12 @@ public class Invite_Activity extends AppCompatActivity {
         invite_text=(EditText) findViewById(R.id.invite_text);
 
         String GroupID;
+        String GroupName;
         Bundle bundle = getIntent().getExtras();
         GroupID =bundle.getString("GroupID");
+        GroupName=bundle.getString("GroupName");
         group_id= GroupID;
+        group_name =GroupName;
 
 
         //sendEmail(invite_text.toString(),"invitation to the best group ever",group_id);
@@ -102,7 +106,8 @@ public class Invite_Activity extends AppCompatActivity {
 
                         Firebase modif_usr = new Firebase(Config.FIREBASE_URL).child("Users").child(userID).child("groups");
 
-                        modif_usr.push().setValue(new group_name_class(group_id));
+                        modif_usr.push().setValue(new group_name_class(group_name,group_id));
+                        finish();
 
 
 
@@ -184,8 +189,15 @@ public class Invite_Activity extends AppCompatActivity {
 class group_name_class{
 
     public String group;
-    public group_name_class(String group) {
+    public String groupID;
+    public group_name_class(String group,String groupID) {
         this.group=group;
+        this.groupID=groupID;
     }
+
+
+
+
+
 
 }

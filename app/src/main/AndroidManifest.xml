@@ -23,12 +23,12 @@
         <activity android:name=".members_activity" />
         <activity android:name=".new_item_activity" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".login_new_user"
             android:label="@string/title_activity_login">
+
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
@@ -43,16 +43,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Autentification"
+            android:name=".Autentification_old_user"
             android:label="@string/title_activity_autentification" >
 
 
         </activity>
 
         <activity android:name=".Invite_Activity" />
-        <activity android:name=".dynamic_example">
-
-        </activity>
 
         <activity android:name=".new_group_activity" />
     </application>

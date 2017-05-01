@@ -13,7 +13,7 @@ public class User {
     private String name;
     private String phoneNumber;
     private String email;
-    private String password;
+    public String password;
     private ArrayList<String> groups = new ArrayList<>();
 
 

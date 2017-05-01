@@ -51,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:hint="Alert"
+        android:hint="Alert (Optional)"
         android:ems="10"
         android:layout_marginTop="21dp"
         android:id="@+id/new_item_alert"
@@ -61,50 +61,55 @@
         tools:text="Tipe an alert message here" />
 
     <Button
+        android:id="@+id/new_item_photo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/new_item_alert"
         android:layout_marginLeft="49dp"
         android:layout_marginStart="49dp"
         android:layout_marginTop="35dp"
-        android:id="@+id/new_item_photo"
-        android:layout_below="@+id/new_item_alert"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        tools:text="Upload photo"
-        android:text="Upload Photo" />
+        android:text="Upload Photo"
+        android:visibility="gone"
+        tools:text="Upload photo" />
 
     <Button
+        android:id="@+id/new_item_add_another"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="23dp"
-        android:id="@+id/new_item_add_another"
-        tools:text="add another item"
-        android:text="Add Another" />
+        android:text="Add Another"
+        android:visibility="gone"
+        tools:text="add another item" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/new_item_add_another"
-        android:layout_toRightOf="@+id/new_item_add_another"
-        android:layout_toEndOf="@+id/new_item_add_another"
-        android:layout_marginLeft="27dp"
-        android:layout_marginStart="27dp"
         android:id="@+id/new_item_save"
         tools:text="save"
-        android:text="Save" />
+        android:text="Save"
+        android:layout_marginRight="47dp"
+        android:layout_marginEnd="47dp"
+        android:layout_below="@+id/new_item_alert"
+        android:layout_alignRight="@+id/spin_item_currency"
+        android:layout_alignEnd="@+id/spin_item_currency"
+        android:layout_marginTop="31dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/new_item_add_another"
-        android:layout_toLeftOf="@+id/new_item_add_another"
-        android:layout_toStartOf="@+id/new_item_add_another"
-        android:layout_marginRight="25dp"
-        android:layout_marginEnd="25dp"
         android:id="@+id/new_item_cancell"
         tools:text="Cancel"
-        android:text="Cancel" />
+        android:text="Cancel"
+
+        android:layout_marginRight="47dp"
+        android:layout_marginEnd="47dp"
+        android:layout_alignBaseline="@+id/new_item_save"
+        android:layout_alignBottom="@+id/new_item_save"
+        android:layout_toLeftOf="@+id/new_item_save"
+        android:layout_toStartOf="@+id/new_item_save" />
 
 </RelativeLayout>

@@ -23,6 +23,7 @@ public class groups_adapter extends ArrayAdapter<groups_class> {
     int layoutResourceId;
 
     private ArrayList<doubts_class> data_doubts;
+    //private String currency;
 
 
     //groups_class data[] = null;
@@ -35,6 +36,7 @@ public class groups_adapter extends ArrayAdapter<groups_class> {
         this.layoutResourceId = layoutResourceId;
         this.data = data;
         this.data_doubts=doubts;
+        //this.currency=currency;
 
     }
 
@@ -54,8 +56,10 @@ public class groups_adapter extends ArrayAdapter<groups_class> {
             holder.textnot = (TextView) row.findViewById(R.id.text2);
 
             /////velez april 30
+            holder.groupID=(TextView) row.findViewById(R.id.groupID);
             holder.divided_doubt = (TextView) row.findViewById(R.id.divided_doubt);
             holder.total_doubt= (TextView) row.findViewById(R.id.total_doubt);
+            holder.currency=(TextView) row.findViewById(R.id.debit_currency);
             /////velez april 30 end
 
 
@@ -70,9 +74,11 @@ public class groups_adapter extends ArrayAdapter<groups_class> {
         holder.textnot.setText(group.getNoti());
 
         /////velez april 30
+        holder.groupID.setText(group.getGroupID());
         doubts_class doubt =data_doubts.get(position);
         holder.divided_doubt.setText(doubt.getDivided());
         holder.total_doubt.setText(doubt.getTotal());
+        holder.currency.setText(doubt.getCurrency());
         /////velez april 30 end
 
 
@@ -95,10 +101,24 @@ public class groups_adapter extends ArrayAdapter<groups_class> {
         TextView text;
         TextView textnot;
 
+        TextView groupID;
         TextView total_doubt;
         TextView divided_doubt;
+        TextView currency;
 
 
+    }
+
+    @Override
+    public boolean areAllItemsEnabled()
+    {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled(int arg0)
+    {
+        return true;
     }
 
 }

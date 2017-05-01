@@ -36,6 +36,7 @@ public class Items_activity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private StaggeredGridLayoutManager mLayoutManager;
     private String GroupID;
+    private String GroupName;
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mDatabaseReference = database.getReference();
 
@@ -51,6 +52,7 @@ public class Items_activity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         GroupID =bundle.getString("GroupID");
+        GroupName=bundle.getString("GroupName");
 
         final ArrayList<items_class> data_items = new ArrayList<items_class>();
         final items_adapter adapter = new items_adapter(this, R.layout.listview_items_row, data_items);
@@ -95,6 +97,7 @@ public class Items_activity extends AppCompatActivity {
         //Creating the adapter
         //items_adapter adapter = new items_adapter(this, R.layout.listview_items_row, data_items2);
         ListView = (ListView) findViewById(R.id.lista2);
+
 
         View header = (View) getLayoutInflater().inflate(R.layout.list_header_row,null);
 
@@ -157,12 +160,14 @@ public class Items_activity extends AppCompatActivity {
         if (id == R.id.action_invitePeople) {
             Intent i = new Intent(this, Invite_Activity.class);
             i.putExtra("GroupID",GroupID);
+            i.putExtra("GroupName",GroupName);
             startActivity(i);
             return true;
 
         }
 
         if (id == R.id.action_leaveGroup) {
+            final boolean[] group_deleted = {false};
             new AlertDialog.Builder(this)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setTitle("Leaving Group")
@@ -171,43 +176,70 @@ public class Items_activity extends AppCompatActivity {
                     {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(getApplicationContext(),"pues estoy embarazada", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(),"pues estoy embarazada", Toast.LENGTH_SHORT).show();
                             //finish();
 
+                            final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+
+                           ////////////////////7 ELIMINAR SI NO HAY MIEMBROS
+
+                            final Firebase firebase = new Firebase(Config.FIREBASE_URL).child("Groups");
+
+                            firebase.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                               @Override
+                                                               public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                   int members= (int) dataSnapshot.child(GroupID).child("members").getChildrenCount();
+                                                                   if (members==1){
+
+                                                                           firebase.child(GroupID).removeValue();
+                                                                           group_deleted[0] = true;
+
+                                                                   }
+                                                                   else{
+                                                                       group_deleted[0] =false;
+                                                                   }
+                                                               }
+
+                                                               @Override
+                                                               public void onCancelled(FirebaseError firebaseError) {
+
+                                                               }
+                                                           });
+                            //////////////// ELIMINAR SI NO HAY MIEMBROS END
 
 
                             ////////delete from group members
-                            final FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                            //Firebase firebase = new Firebase(Config.FIREBASE_URL).child("Groups").child(GroupID).child("members");
 
-                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                            //ref.child("Groups").child("members").orderByChild("userID").equalTo(mAuth.getCurrentUser().getUid());
-                            ref.child("Groups").child(GroupID).child("members").orderByChild("userID").equalTo(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
-                                //
-                                @Override
-                                public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
 
-                                    for (com.google.firebase.database.DataSnapshot ref: dataSnapshot.getChildren()) {
-                                        ref.getRef().removeValue();
+                               DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                               //ref.child("Groups").child("members").orderByChild("userID").equalTo(mAuth.getCurrentUser().getUid());
+                            if (group_deleted[0] ==false) {
+                               ref.child("Groups").child(GroupID).child("members").orderByChild("userID").equalTo(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
+                                   //
+                                   @Override
+                                   public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
 
-                                    }
-                                }
 
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
+                                       for (com.google.firebase.database.DataSnapshot ref : dataSnapshot.getChildren()) {
+                                           ref.getRef().removeValue();
 
-                                }
-                            });
+
+                                       }
+                                   }
+
+                                   @Override
+                                   public void onCancelled(DatabaseError databaseError) {
+
+                                   }
+                               });
+                            }
                             ////////delete from group members-end
 
 
-                            ///delete from user groups
+                            ///delete from user groups INSIDE USER
                             //DatabaseReference ref_userg = FirebaseDatabase.getInstance().getReference();
-                            ref.child("Users").child(mAuth.getCurrentUser().getUid()).child("groups").orderByChild("group").equalTo(GroupID).addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
-                                //
-
-
-
+                            ref.child("Users").child(mAuth.getCurrentUser().getUid()).child("groups").orderByChild("groupID").equalTo(GroupID).addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
                                 @Override
                                 public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
 
@@ -221,7 +253,10 @@ public class Items_activity extends AppCompatActivity {
                                 public void onCancelled(DatabaseError databaseError) {
 
                                 }
+
                             });
+                            group_deleted[0]=false;
+                            finish();
                             ///delete from user groups-end
 
 
@@ -247,9 +282,18 @@ class member_class{
 
     public String userID;
     public boolean paid;
+
     public member_class(String userID) {
         this.userID=userID;
         paid=false;
     }
+
+    void setPaid(boolean x){        this.paid=x;    }
+    boolean getPaid(){return this.paid;}
+
+    void setUserID(String x){        this.userID=x;    }
+    String getUserID(){return this.userID;}
+
+
 
 }

@@ -4,10 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -21,7 +18,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,31 +29,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.api.model.StringList;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
-import static android.Manifest.permission.READ_CONTACTS;
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class Autentification extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class Autentification_old_user extends AppCompatActivity implements LoaderCallbacks<Cursor> {
     ///daniel1
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mDatabaseReference = database.getReference();
@@ -65,7 +51,7 @@ public class Autentification extends AppCompatActivity implements LoaderCallback
     /**
      * Id to identity READ_CONTACTS permission request.
      */
-    private static final int REQUEST_READ_CONTACTS = 0;
+    //private static final int REQUEST_READ_CONTACTS = 0;
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -89,6 +75,7 @@ public class Autentification extends AppCompatActivity implements LoaderCallback
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,56 +91,8 @@ public class Autentification extends AppCompatActivity implements LoaderCallback
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
 
                 if (firebaseAuth.getCurrentUser() != null){
-                    //daniel2
-                    Firebase firebase = new Firebase(Config.FIREBASE_URL).child("Users").child(firebaseAuth.getCurrentUser().getUid()).child("groups");
-                    firebase.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot snap) {
-                            Log.d("snap: ",  "*************************************************************");
-
-                            Log.d("snap: ",  "*************************************************************");
-                           HashMap<String, String> grupitos = (HashMap<String, String>) snap.getValue();
-
-
-                            /*try {
-                                ArrayList<String> listica = new ArrayList<String>(grupitos.values());
-                                ArrayList groups_list =  listica;
-                                startActivity(new Intent(Autentification.this, MainActivity.class).putExtra("group_list",groups_list));
-                                finish();
-                            }catch (Exception ex){
-                                ArrayList listica = new ArrayList();
-                                listica.clear();
-                                ArrayList groups_list =  listica;
-                                startActivity(new Intent(Autentification.this, MainActivity.class).putExtra("group_list",groups_list));
-                                finish();
-                            }
-*/
-                            startActivity(new Intent(Autentification.this, MainActivity.class));
-                            finish();
-
-                            Log.d("snap: ",  "*************************************************************");
-                            //code for retrieve the group list
-                            /*ArrayList groups_list = new ArrayList<String>();
-                            for(int l=0; l<=snap.getChildrenCount(); l++){
-                               groups_list.add(snap.getValue());
-                            }
-*/
-
-                            /*ArrayList groups_list = (ArrayList) snap.getValue();*/
-                            //Log.d("AndroidBash", "grupos lista: " + groups_list.toString());
-                            //groups_list;
-
-                           // finish();
-                        }
-
-                        public void onCancelled(FirebaseError firebaseError) {
-
-                        }
-
-                        public void onCancelled() { }
-                    });
-                    //daniel2 fin
-                    //startActivity(new Intent(Autentification.this, MainActivity.class).putExtra("goup_list",));
+                    startActivity(new Intent(Autentification_old_user.this, MainActivity.class));
+                    finish();
                 }
             }
         };
@@ -161,7 +100,7 @@ public class Autentification extends AppCompatActivity implements LoaderCallback
 
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        populateAutoComplete();
+        /*populateAutoComplete();*/
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -195,15 +134,15 @@ public class Autentification extends AppCompatActivity implements LoaderCallback
     }
     //
 
-    private void populateAutoComplete() {
+    /*private void populateAutoComplete() {
         if (!mayRequestContacts()) {
             return;
         }
 
         getLoaderManager().initLoader(0, null, this);
-    }
+    }*/
 
-    private boolean mayRequestContacts() {
+    /*private boolean mayRequestContacts() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
         }
@@ -223,12 +162,12 @@ public class Autentification extends AppCompatActivity implements LoaderCallback
             requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
         }
         return false;
-    }
+    }*/
 
     /**
      * Callback received when a permissions request has been completed.
      */
-    @Override
+    /*@Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         if (requestCode == REQUEST_READ_CONTACTS) {
@@ -236,7 +175,7 @@ public class Autentification extends AppCompatActivity implements LoaderCallback
                 populateAutoComplete();
             }
         }
-    }
+    }*/
 
 
     /**
@@ -300,7 +239,7 @@ public class Autentification extends AppCompatActivity implements LoaderCallback
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    Toast.makeText(Autentification.this, "Correct log in",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Autentification_old_user.this, "Correct log in",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -389,7 +328,7 @@ public class Autentification extends AppCompatActivity implements LoaderCallback
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(Autentification.this,
+                new ArrayAdapter<>(Autentification_old_user.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         mEmailView.setAdapter(adapter);

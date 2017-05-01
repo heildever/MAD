@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
     final ArrayList group_list = new ArrayList();
     int update_count=0;
+    TextView total_debit;
+
 
 
 
@@ -85,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                startActivity(new Intent(MainActivity.this, login_new_user.class));
 
             }
         });
@@ -110,20 +112,24 @@ public class MainActivity extends AppCompatActivity {
 
 
                 group_list.clear();
-                String group_name;
+                String groupID;
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    Log.d("117: ", postSnapshot.toString());
+                    groupID=postSnapshot.child("groupID").getValue().toString();
 
-                    group_name=postSnapshot.child("group").getValue().toString();
-
-                    group_list.add(group_name);
+                    group_list.add(groupID);
 
                 }
+
+                Log.d("GROUP LIST: ", group_list.toString());
+
                 update_count=update_count+1; //
                 if (update_count>1) {
 
-                    update.setVisibility(View.VISIBLE);
-
-                    Toast.makeText(getApplicationContext(),"your Group list has changed. \nPUSH THE BUTTON FOR UPDATE THE GROUP LIST", Toast.LENGTH_SHORT).show();
+                    //update.setVisibility(View.VISIBLE);
+                    finish();
+                    startActivity(getIntent());
+                    Toast.makeText(getApplicationContext(),"your Group list has changed", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -141,24 +147,25 @@ public class MainActivity extends AppCompatActivity {
 
         final groups_adapter adapter = new groups_adapter(this, R.layout.listview_groups_row, data_groups2,data_doubts);
 
-
+        // MOSTRAR LOS GRUPOS Q SE SACARON DE LA LISTA EN EL LIST
         Firebase.setAndroidContext(this);
         firebase = new Firebase(Config.FIREBASE_URL).child("Groups");
-
-
-        //daniel1
 
         firebase.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
+
             public void onDataChange(DataSnapshot snapshot) {
                 data_groups2.clear();
                 data_doubts.clear();
 
                 float all_doubts=0;
-
+                Log.d("163: ", snapshot.getValue().toString());
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
 
+                    Log.d("166: ", postSnapshot.getValue().toString());
+
+                    Log.d("168: ", group_list.toString() +" "+ postSnapshot.getKey().toString()+ ""+(group_list.contains(postSnapshot.getKey().toString())));
                     if (group_list.contains(postSnapshot.getKey().toString())) {
 
                         HashMap<String, Object> Items_2 = (HashMap<String, Object>) postSnapshot.child("Items").getValue();
@@ -166,12 +173,10 @@ public class MainActivity extends AppCompatActivity {
                         int icon = postSnapshot.child("icon").getValue(int.class);
 
                         String title = postSnapshot.child("title").getValue().toString();
-                        groups_class group2 = new groups_class(noti, icon, title, Items_2);
+                        String groupID=postSnapshot.child("groupID").getValue().toString();
+                        groups_class group2 = new groups_class(groupID,noti, icon, title, Items_2);
 
-                        //data_groups2.add(group2);
-
-                        //ListView = (ListView) findViewById(R.id.lista1);
-                        //ListView.setAdapter(adapter);
+                        Log.d("179: ", group2.toString());
 
 
                         //TOTAL PRICE OF GROUP
@@ -196,32 +201,37 @@ public class MainActivity extends AppCompatActivity {
 
                         if((contador_items-1)==contador_currency){same_currency=true;}
 
-                        Log.d("total spenditure : ", String.valueOf(total_price));
-
 
                         //TOTAL MEMBERS
 
                         float total_members=postSnapshot.child("members").getChildrenCount();;
-                        Log.d("total members : ", String.valueOf(total_members));
 
-                        float divided_price=total_price/total_members;
-                        Log.d("divided prie : ", String.valueOf(divided_price));
+                        float divided_price=0;
+                        if (total_members!=0){
+                         divided_price=total_price/total_members;}
 
-                        if (same_currency){Log.d("currency : ", temporal_currency);}
+
+
 
                         //check if I had paid
 
                         boolean paid;
-                        paid= Boolean.parseBoolean(postSnapshot.child("members").child(userID).child("paid").getValue().toString());
-                        Log.d("paid : ", String.valueOf(paid));
+                        try {
+                            paid = Boolean.parseBoolean(postSnapshot.child("members").child(userID).child("paid").getValue().toString());
+                        }catch (Exception e){paid=false;}
 
                         if(paid==false){all_doubts=all_doubts+divided_price;}
 
-
-
-
                         data_groups2.add(group2);
-                        data_doubts.add(new doubts_class(total_price,divided_price));
+                        //data_doubts.add(new doubts_class(total_price,divided_price));
+
+                        if (same_currency) {
+                            Log.d("currency : ", temporal_currency);
+                            data_doubts.add(new doubts_class(total_price,divided_price,temporal_currency));
+                        }
+                        else {data_doubts.add(new doubts_class(total_price,divided_price));}
+
+
 
                         ListView = (ListView) findViewById(R.id.lista1);
                         ListView.setAdapter(adapter);
@@ -233,6 +243,8 @@ public class MainActivity extends AppCompatActivity {
 
                 }
                 Log.d("total to paid all groups : ", String.valueOf(all_doubts));
+                total_debit= (TextView) findViewById(R.id.total_debit);
+                total_debit.setText(String.valueOf(all_doubts));
             }
 
             @Override
@@ -249,19 +261,24 @@ public class MainActivity extends AppCompatActivity {
             //Creating the adapter
         ListView = (ListView) findViewById(R.id.lista1);
 
+
         View header = (View) getLayoutInflater().inflate(R.layout.list_header_row, null);
         ListView.addHeaderView(header);
         ListView.setAdapter(adapter);
 
+        Log.d("ITEMS COUNT: ", String.valueOf(ListView.getHeaderViewsCount()));
         ListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView v = (TextView) view.findViewById(R.id.text1);
+                TextView groupID =(TextView) view.findViewById(R.id.groupID);
 
-
+                Log.d("ITEMS COUNT: ", (String) v.getText());
                 Intent i = new Intent(view.getContext(), Items_activity.class);
-                i.putExtra("GroupID", v.getText());
+                i.putExtra("GroupID", groupID.getText());
+                i.putExtra("GroupName",v.getText());
                 startActivity(i);
+
             }
         });
 
@@ -276,6 +293,7 @@ public class MainActivity extends AppCompatActivity {
 
         TextView userID_tv = (TextView) findViewById(R.id.userID);
         userID_tv.setText("welcome: " + mAuth.getCurrentUser().getEmail());
+        //userID_tv.setVisibility(View.GONE);
     }
 
     @Override
@@ -301,7 +319,9 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed();
+            finish();
             return;
+
         }
 
         this.doubleBackToExitPressedOnce = true;
@@ -326,15 +346,23 @@ class doubts_class {
 
     public float total;
     public float divided;
+    public String currency;
 
     public doubts_class(){
         super();
     }
 
+    public doubts_class( float total,float divided,String currency){
+        super();
+        this.total = total;
+        this.divided = divided;
+        this.currency=currency;
+    }
     public doubts_class( float total,float divided){
         super();
         this.total = total;
         this.divided = divided;
+        this.currency="";
     }
 
     public void setTotal( float total){this.total=total;}
@@ -342,5 +370,8 @@ class doubts_class {
 
     public void setDivided( float d){this.divided=d;}
     public String getDivided(){return String.valueOf(this.divided);}
+
+    public void setCurrency( String d){this.currency=d;}
+    public String getCurrency(){return String.valueOf(this.currency);}
 
 }

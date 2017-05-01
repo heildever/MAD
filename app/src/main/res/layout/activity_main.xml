@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -31,24 +31,59 @@
     <ListView
         android:id="@+id/lista1"
         android:layout_width="match_parent"
-        android:layout_height="309dp">
+        android:layout_height="309dp"
+        android:layout_below="@+id/userID">
+
 
     </ListView>
-
-    <Button
-        android:id="@+id/clos_ses"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Close session" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_group"
         android:layout_width="71dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/margenes_fab"
         android:layout_weight="0.01"
         android:clickable="true"
-        android:src="@android:drawable/ic_input_add" />
+        android:src="@android:drawable/ic_input_add"
+        android:layout_marginRight="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_above="@+id/total_debit_text"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/clos_ses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Close session"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/total_debit"
+        android:layout_toRightOf="@+id/update_button"
+        android:layout_toEndOf="@+id/update_button"
+        android:layout_marginLeft="38dp"
+        android:layout_marginStart="38dp" />
+
+    <TextView
+        android:id="@+id/total_debit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/lista1"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/total_debit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/total_debit"
+        android:layout_alignBottom="@+id/total_debit"
+        android:layout_marginEnd="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_toLeftOf="@+id/total_debit"
+        android:layout_toStartOf="@+id/total_debit"
+        android:text="Total Debit: "
+        android:textSize="20dp" />
+
+</RelativeLayout>

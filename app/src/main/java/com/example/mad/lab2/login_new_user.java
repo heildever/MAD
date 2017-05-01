@@ -24,23 +24,14 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-//import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-//import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +46,7 @@ import static com.example.mad.lab2.R.id.password;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class login_new_user extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
     ///DANIEL VELEZ/ http://androidbash.com/firebase-classic-email-login-facebook-login-android/
     private static final String TAG = "AndroidBash";
@@ -64,9 +55,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText phoneNumber;
     private EditText email;
     private EditText password;
-    private String group_to_register="";
-    private String token_to_register;
-    private Firebase mRef = new Firebase("http://lab2-a0a02.firebaseio.com/");
+    private Firebase mRef = new Firebase(Config.FIREBASE_URL);
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
 
@@ -98,9 +87,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
 
 
+
+
         //DANIEL
         mAuth = FirebaseAuth.getInstance();
         FirebaseAuth.AuthStateListener mAuthListener;
+
 
 
         super.onCreate(savedInstanceState);
@@ -117,75 +109,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         NewUser.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, Autentification.class));
-                finish();
+                startActivity(new Intent(login_new_user.this, Autentification_old_user.class));
             }
         });
         //End Stiben
-
-        // ATTENTION: This was auto-generated to handle app links.
-        Intent appLinkIntent = getIntent();
-        String appLinkAction = appLinkIntent.getAction();
-        Uri appLinkData = appLinkIntent.getData();
-
-        try {
-            Log.d(TAG, "appLinkIntent :" + appLinkIntent.getDataString());//appLinkData :https://example.com/carro
-            Log.d(TAG, "appLinkAction :" + appLinkAction.toString()); //appLinkAction :android.intent.action.VIEW
-            Log.d(TAG, "appLinkData :" + appLinkData.toString());//appLinkData :https://example.com/carro
-            Log.d(TAG, "appLinkData :" + appLinkData.getLastPathSegment().toString()); //appLinkData :carro
-
-
-            token_to_register=appLinkData.getLastPathSegment().toString();
-
-
-
-            //Toast.makeText(this, "This is my Toast message!",Toast.LENGTH_LONG).show();
-
-            TextView email_to_token;
-            email_to_token =(TextView) findViewById(R.id.text_view_new_email);
-            //email_to_token.setVisibility(View.GONE);
-            email=(EditText) findViewById(R.id.edit_text_new_email);
-            //email.setVisibility(View.GONE);
-            //email_to_token.setText("Enter the Token you have received:");
-            //token_to_register= (EditText) findViewById(R.id.edit_text_new_email);
-
-
-
-            //////acceso db
-            final FirebaseDatabase database = FirebaseDatabase.getInstance();
-            Firebase ref = new Firebase(Config.FIREBASE_URL).child("Invitations").child(token_to_register);
-
-            ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(com.firebase.client.DataSnapshot dataSnapshot) {
-
-                    Log.d("DATASNAPSHOT", dataSnapshot.toString());
-                    Log.d("DATASNAPSHOT", dataSnapshot.getValue().toString());
-                    Log.d("DATASNAPSHOT", dataSnapshot.child("group").getValue().toString());
-
-                    group_to_register=dataSnapshot.child("group").getValue().toString();
-                    email.setText(dataSnapshot.child("email").getValue().toString());
-                }
-
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
-
-                }
-
-
-            });
-            /////acceso db end
-
-
-        }catch (Exception e) {
-            Log.d(TAG, e.getMessage());
-        }
 
     }
 
 
     //velez
-        protected void onStart() {
+    @Override
+    protected void onStart() {
         super.onStart();
 /*
         mAuth.addAuthStateListener(mAuthListener);
@@ -224,7 +158,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private void createNewAccount(String email, String password) {
         Log.d(TAG, "createNewAccount:" + email);
         if (!validateForm()) {
-            Toast.makeText(LoginActivity.this, "!validateForm()",
+            Toast.makeText(login_new_user.this, "!validateForm()",
                     Toast.LENGTH_SHORT).show();
             return;
         }
@@ -247,14 +181,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                            Toast.makeText(login_new_user.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
 
                         } else {
 
-                            //Log.d(TAG, "getresult:" + task.getResult().toString());
-                            //Log.d(TAG, "getresult:" + task.getResult().getUser().toString());
-                            //Log.d(TAG, "getresult:" + task.getResult().getUser().getUid().toString());
+                            Log.d(TAG, "getresult:" + task.getResult().toString());
+                            Log.d(TAG, "getresult:" + task.getResult().getUser().toString());
+                            Log.d(TAG, "getresult:" + task.getResult().getUser().getUid().toString());
 
                             /*onAuthenticationSucess(task.getResult().getUser());*/
                             onAuthenticationSucess(task.getResult().getUser());
@@ -292,19 +226,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         saveNewUser(mUser.getUid(), user.getName(), user.getPhoneNumber(), user.getEmail(), user.getPassword());
         signOut();
 
-        // Go to LoginActivity
+        // Go to login_new_user
 
-        startActivity(new Intent(LoginActivity.this, Autentification.class).putExtra("UserID", mUser.getUid().toString()));
+        startActivity(new Intent(login_new_user.this, Autentification_old_user.class).putExtra("UserID", mUser.getUid().toString()));
         finish();
     }
     private void saveNewUser(String userId, String name, String phone, String email, String password) {
         User user = new User(userId,name,phone,email,password);
 
         mRef.child("Users").child(userId).setValue(user);
-        if(group_to_register==""){Log.d("a","a");}
-        else {
-            mRef.child("Users").child(userId).child("groups").push().setValue(group_to_register);
-        }
     }
     private void signOut() {
         mAuth.signOut();
@@ -419,7 +349,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(LoginActivity.this,
+                new ArrayAdapter<>(login_new_user.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         mEmailView.setAdapter(adapter);

@@ -8,24 +8,25 @@
         android:id="@+id/new_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_marginTop="14dp"
-        android:hint="@string/New_item_name"
-        tools:text="New Group"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="14dp"
         android:layout_toLeftOf="@+id/new_item_photo"
-        android:layout_toStartOf="@+id/new_item_photo" />
+        android:layout_toStartOf="@+id/new_item_photo"
+        android:ems="10"
+        android:hint="@string/New_group_name"
+        android:inputType="textPersonName"
+        tools:text="New Group" />
 
     <Button
+        android:id="@+id/new_item_photo_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:id="@+id/new_item_photo_group"
-        tools:text="Upload photo"
-        android:text="Upload Photo"
         android:layout_below="@+id/new_group"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="52dp"
+        android:text="Upload Photo"
+        android:visibility="gone"
+        tools:text="Upload photo" />
 
     <Button
         android:id="@+id/new_group_save"
@@ -46,11 +47,11 @@
         android:layout_height="wrap_content"
         tools:text="Cancel"
         android:text="Cancel"
-        android:layout_marginBottom="32dp"
-        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp"
+        android:layout_below="@+id/new_group"
         android:layout_toRightOf="@+id/new_group"
         android:layout_toEndOf="@+id/new_group"
-        android:layout_marginLeft="30dp"
-        android:layout_marginStart="30dp" />
+        android:layout_marginTop="36dp" />
 
 </RelativeLayout>
